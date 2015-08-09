@@ -1,0 +1,9 @@
+<metal:main use-macro="load: profile.pt">
+<div metal:fill-slot="profile_content">
+
+    <p>Login: ${usr.login}</p>
+    <p>Displayed Nickname: ${usr.nickname}</p>
+    <p tal:condition="usr.email" >eMail: ${usr.email}</p>
+
+</div>
+</metal:main>

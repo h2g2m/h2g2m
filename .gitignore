@@ -1,0 +1,16 @@
+*.egg-info
+*.bak
+*.py?
+*.sqlite
+/venv
+/data
+
+# assets
+/h2g2m/static/css/bootstrap.css
+/h2g2m/static/fonts
+/h2g2m/static/js/bloodhound.js
+/h2g2m/static/js/bootstrap.js
+/h2g2m/static/js/jquery.storageapi.js
+/h2g2m/static/js/jquery-1.11.2.js
+/h2g2m/static/js/typeahead.jquery.js
+/h2g2m/static/mathjax

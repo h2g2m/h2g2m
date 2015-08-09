@@ -1,0 +1,24 @@
+<metal:main use-macro="load: base.pt">
+
+<script type="text/javascript" metal:fill-slot="js">
+$(function() {
+    var g = new Graph();
+    g.addDirectedEdge = function(from, to) {
+        this.addEdge(from, to, { directed : true });
+    }
+    
+    <div tal:omit-tag="True" tal:repeat="grp grps"><div tal:omit-tag="True" tal:repeat="n grp.delta_in">g.addDirectedEdge("${n.name}", "${grp.name}");</div></div>
+    
+    var layouter = new Graph.Layout.Spring(g);
+    layouter.layout();
+     
+    var renderer = new Graph.Renderer.Raphael('canvas', g, 1000, 600);
+    renderer.draw();
+});
+</script>
+
+<p metal:fill-slot="content">
+    <h1>Groups</h1>
+    <div id="canvas"></div>
+</p>
+</metal:main>

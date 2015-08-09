@@ -1,0 +1,9 @@
+<div tal:omit-tag="True" tal:repeat="annotation annotations">
+${h.Literal(annotation.tex_header.content)}
+\begin{description}
+\item[Title] ${h.Literal(annotation.title)}
+\item[Location] ${h.Literal(annotation.location)}
+\item[Tags] ${h.Literal(annotation.tags)}
+\item[Content] ${h.Literal(annotation.content)}
+\end{description]
+</div>

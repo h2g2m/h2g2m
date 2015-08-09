@@ -1,0 +1,16 @@
+<metal:main use-macro="load: profile.pt">
+<div metal:fill-slot="profile_content">
+    <table class="table data-table">
+        <thead>
+            <tr>
+                <th>Text</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr tal:repeat="txt usr.txts">
+                <td><a href="${request.route_url('txt.view', txt_id=txt.id)}">${txt.title}</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</metal:main>

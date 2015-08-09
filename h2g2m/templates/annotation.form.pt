@@ -1,0 +1,60 @@
+<metal:main use-macro="load: base.pt">
+<script type="text/javascript" metal:fill-slot="js">
+$(function() {
+    var form = $('#content').closest('form')
+    form.find('input,textarea,select').each(function(ind, elem) {
+        if (ind == $.getUrlVar('focused_element')) {
+            $(elem).focus();
+            $(elem).setCursorPosition($.getUrlVar('courser_position'));
+        }
+        $(elem).bind('keydown', 'Ctrl+s', function () {
+            form.append('<input type="hidden" name="next" value="edit" />');
+            form.append('<input type="hidden" name="focused_element" value="'+ind+'" />');
+            form.append('<input type="hidden" name="courser_position" value="'+$(elem).getCursorPosition()+'" />');
+            form.submit();
+            return false;
+        });
+    });
+});
+</script>
+<div metal:fill-slot="content" class="row">
+    <h1 tal:condition=" 'annotation_id' in request.matchdict">Edit Annotation</h1>
+    <h1 tal:condition=" 'annotation_id' not in request.matchdict">Add Annotation to ${txt.displayname}</h1>
+        
+    <div class="row">
+    <div class="col-md-6">
+        <form method="post" class="form-horizontal">
+            <fieldset>
+                <legend>Annotation</legend>
+                ${h.formfield(form, id='title', caption='Title', fieldtype='text', columns=(3,9))}
+                ${h.formfield(form, id='location', caption='Location', fieldtype='text', columns=(3,9))}
+                ${h.formfield(form, id='content', caption='Content', fieldtype='textarea', columns=(3,9), rows=14, cols=80, style='width:100%;')}
+                ${h.formfield(form, id='tags', caption='Tags', fieldtype='text', columns=(3,9))}
+                ${h.formfield(form, id='language', caption='Language', fieldtype='text', columns=(3,9))}
+                ${h.formfield(form, id='tex_header_id', caption='LaTeX header', fieldtype='select', columns=(3,9), options= [(0, 'None')] + [ (th.id, th.name) for th in request.usr.tex_headers ] )}
+            </fieldset>
+
+            <div class="form-group"><div class="form-actions col-sm-offset-3 col-sm-9">
+                <a tal:condition="request.back_link" href="${request.back_link}" class="btn btn-info">Back</a>
+                <button type="submit" class="btn btn-primary" tal:condition=" 'annotation_id' in request.matchdict" name="next" value="list">Save & back</button>
+                <button type="submit" class="btn btn-primary" tal:condition=" 'annotation_id' in request.matchdict" name="next" value="view">Save & view</button>
+                <button type="submit" class="btn btn-primary" tal:condition=" 'annotation_id' in request.matchdict" name="next" value="edit">Save</button>
+                <button type="submit" class="btn btn-primary" tal:condition=" 'annotation_id' not in request.matchdict" name="next" value="list">Create & back</button>
+                <button type="submit" class="btn btn-primary" tal:condition=" 'annotation_id' not in request.matchdict" name="next" value="view">Create & view</button>
+                <button type="submit" class="btn btn-primary" tal:condition=" 'annotation_id' not in request.matchdict" name="next" value="edit">Create</button>
+            </div></div>
+
+        </form>
+    </div>
+    <div class="col-md-6">
+        <form>
+            <fieldset>
+                <legend>Preview</legend>
+                <div class="control-group" tal:condition=" 'annotation_id' in request.matchdict" id="AnnotationContent">${annotation.html_content}</div>
+            </fieldset>
+        </form>
+    </div>
+    </div>
+
+</div>
+</metal:main>

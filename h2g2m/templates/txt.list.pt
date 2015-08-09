@@ -1,0 +1,15 @@
+<metal:main use-macro="load: base.pt">
+<div metal:fill-slot="content">
+    <h1>List of Texts</h1>
+    <p>${txts.count()} hit(s).</p>
+    <ul>
+        <li tal:repeat="txt txts">
+            <a tal:condition="exists:annotation" class="btn btn-info" href="${request.route_url('annotation.add_to_text', annotation_id=annotation.id, txt_id=txt.id)}"><i class="icon-hand-right"></i> add to this text</a>
+            <a href="${request.route_url('txt.view', txt_id=txt.id)}">
+                <span>${txt.title}</span>
+                by <span>${txt.authors}</span>
+            </a> (${len(txt.annotations)} annotation(s))
+        </li>
+    </ul>
+</div>
+</metal:main>

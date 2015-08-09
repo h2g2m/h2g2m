@@ -1,0 +1,21 @@
+<metal:main use-macro="load: base.pt">
+<div metal:fill-slot="content">
+    <h1>Add Existing Annotation to Text</h1>
+    
+    <form method="post" >
+        <fieldset>
+            <legend>Annotation</legend>
+            ${annotation}
+            ${h.hiddenfield(form,'annotation_id', value=annotation.id)}
+        </fieldset>
+        <fieldset>
+            <legend>Text</legend>
+            ${txt}
+            ${h.hiddenfield(form,'txt_id', value=txt.id)}
+        </fieldset>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary" >Save</button>
+        </div>
+    </form>
+</div>
+</metal:main>

@@ -1,0 +1,13 @@
+<metal:main use-macro="load: txt.search.pt">
+<div metal:fill-slot="search_content">
+    <form method="post" >
+        <fieldset>
+            <legend>Search</legend>
+            ${h.formfield(form, 'q', 'Query', 'text')}
+        </fieldset>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+</div>
+</metal:main>

@@ -1,0 +1,21 @@
+﻿<metal:main use-macro="load: base.pt">
+<p metal:fill-slot="content">
+
+<form method="post">
+<fieldset>
+    <legend>Register</legend>
+    ${h.formfield(form, 'login', 'Login', 'text')}
+    ${h.formfield(form, 'nickname', 'Displayed Nickname', 'text')}
+    ${h.formfield(form, 'email', 'eMail', 'text')}
+    ${h.formfield(form, 'passwd', 'Password', 'password')}
+    ${h.formfield(form, 'passwd_rep', 'Repeat Password', 'password')}
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Register</button>
+    </div>
+
+</fieldset>
+</form>
+
+</p>
+</metal:main>

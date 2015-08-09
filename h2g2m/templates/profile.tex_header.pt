@@ -1,0 +1,40 @@
+<metal:main use-macro="load: profile.pt">
+<div metal:fill-slot="profile_content">
+    <div class="tabbable tabs-left" >
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#create_new_header" data-toggle="tab"><i>Create new header...</i></a></li>
+            <li tal:repeat="tex usr.tex_headers"><a href="#texheader-${tex.id}" data-toggle="tab">${tex.name}</a></li>
+        </ul>
+        <div class="tab-content" >
+            <div class="tab-pane active" id="create_new_header">
+                <form method="post" >
+                    <fieldset>
+                        <legend>Create new tex-Header</legend>
+                        ${h.formfield(form, 'name', 'Name', 'text')}
+                        ${h.formfield(form, 'content', 'Content', 'textarea', rows=6)}
+                        ${h.formfield(form, 'is_default', 'is default', 'checkbox')}
+                    </fieldset>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </div>
+                </form>
+            </div>
+            <div tal:repeat="tex usr.tex_headers" class="tab-pane" id="texheader-${tex.id}">
+                <form method="post" >
+                    ${h.hiddenfield(form, 'tex_header_id', value=tex.id)}
+                    <fieldset>
+                        <legend>Edit existing tex-Header</legend>
+                        ${h.formfield(form, 'name', 'Name', 'text', value=tex.name)}
+                        ${h.formfield(form, 'content', 'Content', 'textarea', rows=6, cols=30, content=tex.content)}
+                        ${h.formfield(form, 'is_default', 'is default', 'checkbox', checked=tex.is_default)}
+                    </fieldset>
+                    <div class="form-actions">
+                        <button name="action" value="delete" type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> <!-- /tabbable -->
+</div>
+</metal:main> 

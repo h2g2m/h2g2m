@@ -1,0 +1,18 @@
+<metal:main use-macro="load: profile.pt">
+<div metal:fill-slot="profile_content">
+    <table class="table data-table">
+        <thead>
+            <tr>
+                <th>Tag</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr tal:repeat="tag usr.tag_list">
+                <td><a href="${request.route_url('tag', tag_id=tag.id)}">${tag}</a></td>
+                <td>${len(tag.annotations)}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</metal:main>

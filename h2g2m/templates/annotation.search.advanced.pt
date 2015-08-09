@@ -1,0 +1,9 @@
+<metal:main use-macro="load: annotation.search.pt">
+<div metal:fill-slot="search_content">
+    <legend>Search in Text</legend>
+    ${h.formfield(form, 'author', 'Author', 'text')}
+    ${h.formfield(form, 'title', 'Title', 'text')}
+    ${h.formfield(form, 'edition', 'Edition', 'text')}
+    ${h.formfield(form, 'isbn', 'ISBN', 'text')}
+</div>
+</metal:main>

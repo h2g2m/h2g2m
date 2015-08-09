@@ -1,0 +1,21 @@
+<metal:main use-macro="load: base.pt">
+<div metal:fill-slot="content">
+    <h2>
+        <a tal:condition="request.back_link" href="${request.back_link}" class="btn btn-info morespacing">Back</a>
+        <a tal:condition="1"  href="${request.route_url('txt.edit', txt_id=txt.id)}" class="btn btn-info morespacing"><i class="icon-edit"></i> edit</a>
+        <a href="${request.route_url('txt.delete', txt_id=txt.id)}" class="btn btn-danger morespacing"><i class="icon-trash"></i> delete</a>
+        ${txt.title} 
+    </h2>
+
+    <div tal:define="compile load: txt.properties.pt" metal:use-macro="compile"></div>
+            
+    <h2>
+        <a href="${request.route_url('annotation.add', txt_id=txt.id)}" class="btn btn-success morespacing"><i class="icon-plus-sign"></i> create new</a>
+        <a href="${request.route_url('annotation.search.basic', txt_id=txt.id)}" class="btn btn-success morespacing"><i class="icon-hand-right"></i> add existing</a>
+        Annotations
+    </h2>
+
+    <div tal:define="show_links ['view','edit']; annotations txt_annotations; compile load: annotation.list.pt" metal:use-macro="compile" />
+
+</div>
+</metal:main>

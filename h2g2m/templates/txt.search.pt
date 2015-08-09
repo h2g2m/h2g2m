@@ -1,0 +1,15 @@
+<metal:main use-macro="load: base.pt">
+<div metal:fill-slot="content">
+    <h1>Search Text</h1>
+    <ul class="nav nav-tabs">    
+        <li tal:repeat="x [('Basic','basic'),
+                           ('Advanced','advanced'), 
+            ]" tal:attributes="class 'active' if request.environ['PATH_INFO']== \
+                       request.route_path('txt.search.'+x[1]) else default">
+            <a href="${request.route_url ('txt.search.'+x[1])}">${x[0]}</a>
+        </li>
+    </ul>
+    <metal:content define-slot="search_content" />
+    <div tal:condition="txts" tal:define="result_list load: txt.list.pt" metal:use-macro="result_list" />
+</div>
+</metal:main>

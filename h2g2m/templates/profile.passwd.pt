@@ -1,0 +1,16 @@
+<metal:main use-macro="load: profile.pt">
+<div metal:fill-slot="profile_content">
+    <form method="post" >
+        <fieldset>
+            <legend>Edit Password</legend>
+            ${h.formfield(form, 'passwd', 'Password', 'password')}
+            ${h.formfield(form, 'passwd_rep', 'Repeat Password', 'password')}
+        </fieldset>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+        
+    </form>
+</div>
+</metal:main>

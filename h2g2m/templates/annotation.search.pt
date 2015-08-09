@@ -1,0 +1,23 @@
+<metal:main use-macro="load: base.pt">
+<div metal:fill-slot="content">
+    <h1>Add Existing Annotation</h1>
+    <ul class="nav nav-tabs">    
+        <li tal:repeat="x [('Basic','basic'),
+                           ('Advanced','advanced'), 
+            ]" tal:attributes="class 'active' if request.current_route_path()== \
+                       request.route_path('annotation.search.'+x[1], txt_id=txt.id) else default">
+            <a href="${request.route_path('annotation.search.'+x[1], txt_id=txt.id)}">${x[0]}</a>
+        </li>
+    </ul>
+    <form method="post" >
+        <fieldset>
+            <metal:content define-slot="search_content" />
+        </fieldset>
+        <div class="form-actions">
+            <a tal:condition="request.back_link" class="btn btn-info" href="${request.back_link}">Back</a>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+    <div tal:define="show_links ['add_to_text']; compile load: annotation.list.pt" metal:use-macro="compile" />
+</div>
+</metal:main>

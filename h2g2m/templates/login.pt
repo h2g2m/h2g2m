@@ -1,0 +1,20 @@
+<metal:main use-macro="load: base.pt">
+<div metal:fill-slot="content">
+
+    <h1>Login</h1>
+    <form method="post" >
+        <fieldset>
+            <legend>Login</legend>
+            ${h.formfield(form, 'login', 'Login', 'text')}
+            ${h.formfield(form, 'passwd', 'Password', 'password')}
+            ${h.formfield(form, 'stay', 'Eingeloggt Bleiben', 'checkbox')}
+        </fieldset>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+        
+    </form>
+
+</div>
+</metal:main>

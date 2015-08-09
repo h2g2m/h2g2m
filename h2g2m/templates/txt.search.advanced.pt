@@ -1,0 +1,20 @@
+<metal:main use-macro="load: txt.search.pt">
+<div metal:fill-slot="search_content">
+    <form method="post" >
+        <fieldset>
+            <legend>Search in Text</legend>
+            ${h.formfield(form, 'author', 'Author', 'text')}
+            ${h.formfield(form, 'title', 'Title', 'text')}
+            ${h.formfield(form, 'edition', 'Edition', 'text')}
+            ${h.formfield(form, 'isbn', 'ISBN', 'text')}
+        </fieldset>
+        <fieldset>
+            <legend>Search in Annotations</legend>
+            ${h.formfield(form, 'annotation_content', 'Content', 'text')}
+        </fieldset>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+</div>
+</metal:main>

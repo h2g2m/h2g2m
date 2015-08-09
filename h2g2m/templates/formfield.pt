@@ -1,0 +1,7 @@
+<div class="form-group ${'error' if form.is_error(ffm_id) else ''}">
+    <label for="${ffm_id}" class="col-sm-${ffm_cols[0]} control-label">${ffm_caption}</label>
+    <div class="col-sm-${ffm_cols[1]}">
+    ${ffm_field}
+    ${form.errorlist(ffm_id, class_='help-inline')}
+    </div>
+</div>

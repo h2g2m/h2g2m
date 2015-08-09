@@ -1,0 +1,14 @@
+﻿<dl class="dl-horizontal">
+    <dt>Title<dt>
+    <dd>${txt.title}</dd>
+    <dt>Author(s)<dt>
+    <dd>${txt.authors}</dd>
+    <dt>Edition</dt>
+    <dd>${txt.edition} </dd>
+    <dt>Language</dt>
+    <dd>${txt.language}</dd>
+    <dt tal:condition="txt.isbn">ISBN</dt>
+    <dd tal:condition="txt.isbn">${txt.isbn}</dd>
+    <dt tal:condition="txt.url">URL</dt>
+    <dd tal:condition="txt.url"><a href='${txt.url}' target='_blank'>${txt.url}</a></dd>
+</dl>

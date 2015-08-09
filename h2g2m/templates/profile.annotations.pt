@@ -1,0 +1,5 @@
+<metal:main use-macro="load: profile.pt">
+<div metal:fill-slot="profile_content">
+    <div tal:define="show_links ['view','edit']; annotations usr.annotations; compile load: annotation.list.pt" metal:use-macro="compile" />
+</div>
+</metal:main>

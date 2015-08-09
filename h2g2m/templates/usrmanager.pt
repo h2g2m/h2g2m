@@ -1,0 +1,17 @@
+<metal:main use-macro="load: base.pt">
+<p metal:fill-slot="content">
+    <h1>Usermanager</h1>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Nickname</th>
+            <th>eMail</th>
+        </tr>
+        <tr tal:repeat="usr usrs" >
+            <td>${usr.id}</td>
+            <td>${usr.nickname}</td>
+            <td><a tal:condition="usr.email" href="mailto:${usr.email}">${usr.email}</a></td>
+        </tr>
+    </table>
+</p>
+</metal:main>

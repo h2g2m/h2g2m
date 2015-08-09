@@ -1,0 +1,1 @@
+<script tal:condition="tex_header" type="math/tex">\begingroup</script><script tal:condition="tex_header" type="math/tex">${structure: tex_header.content.strip()}</script>${h.do_latex(content)}<script tal:condition="tex_header" type="math/tex">\endgroup</script>

@@ -1,0 +1,29 @@
+<metal:main use-macro="load: base.pt">
+<p metal:fill-slot="content">
+    <h1>Welcome to H2G2M - This margin is wide enough.</h1>
+    <ul>
+        <li><a href="${request.route_url('register')}">Register</a></li>
+        <li tal:condition="h.is_admin(request)" ><a href="${request.route_url('admin.usr.list')}">User-Manager</a></li>
+        <li tal:condition="h.is_admin(request)" ><a href="${request.route_url('admin.groups')}">Group-Overview</a></li>
+    </ul>
+    <ul>
+        <li><b>What is this project about?</b> Reading math texts is difficult. Sooner or later you will get stuck somewhere and you will start writing notes. Maybe on the margin of your book, your lecture script or on a sheet of paper. If you read a lot, these notes have a tendency to get confusing, chaotic and lost. This software helps you organize and store your math notes. It also allows you to share your notes with everybody you like in a secure and precisely controllable manner. 
+        <li><b>Terms of use.</b> This piece of software has just been created and is in its pre-alpha state. If you decide to be with us at these early days, we have to warn you that using this website happens at your own risk. <i>Hey, what could possibly go wrong?</i> Well, not much, but you should keep local backups of your important data.</li>
+        <li><b>How do I use this website?</b> You either use your intuition and explore how it works on your own, or you <a href='http://alpha.h2g2m.com/t/17'>read the fucking manual</a>. First order of business is to <a href='http://alpha.h2g2m.com/a/101/'>create a user account</a>.</li>
+        <li><b>Something does not work.</b> Please let us know everything (even the slightest detail) that does not work as you think it should. Your user feedback is invaluable to us and will be crucial to shape the future of this project. We are interested in any bugs you might encounter, ideas you have for additional features or any thoughts you might find interesting. In order to manage your feedback, we have set up a ticketing system called <i>Trac</i>. Please use this system to submit your feedback. If you don't know how that works, please consult <a href='http://alpha.h2g2m.com/a/98/'>this helpsite</a>.</li>
+        <li><b>Your interface looks shit.</b> We know. Its on the list...</li>
+    </ul>
+    <h1>Statistics</h1>
+    <ul>
+        <li><b>Users:</b> ${stats['users']}</li>
+        <li><b>Texts:</b> ${stats['texts']}</li>
+        <li><b>Annotations:</b> ${stats['annotations']}</li>
+    </ul>
+    <span tal:condition="log">
+        <h2>Log-Stream</h2>
+        <ul>
+            <li tal:repeat="entry log">${entry}</li>
+        </ul>
+    </span>    
+</p>
+</metal:main>

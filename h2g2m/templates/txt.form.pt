@@ -1,0 +1,22 @@
+<metal:main use-macro="load: base.pt">
+<div metal:fill-slot="content">
+    <h1 tal:condition="'txt_id' not in request.matchdict">Add Text</h1>
+    <h1 tal:condition="'txt_id' in request.matchdict">Edit Text</h1>
+
+    <form method="post" id="TxtForm">
+        <fieldset>
+            <legend>Text</legend>
+            ${h.formfield(form, 'authors', 'Author(s)', 'text')}
+            ${h.formfield(form, 'title', 'Title', 'text')}
+            ${h.formfield(form, 'edition', 'Edition', 'text')}
+            ${h.formfield(form, 'language', 'Language', 'text')}
+            ${h.formfield(form, 'isbn', 'ISBN', 'text')}
+            ${h.formfield(form, 'url', 'URL', 'text')}
+        </fieldset>
+        <div class="form-actions">
+            <a tal:condition="request.back_link" href="${request.back_link}" class="btn btn-info">Back</a>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</div>
+</metal:main>
