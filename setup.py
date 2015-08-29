@@ -21,22 +21,22 @@ requires = [
     'pyramid_simpleform',
     'pyramid_mailer',
     'pyramid_beaker',
-#    'urllib',
+    # 'urllib',
     'urlparse2',
-#    'python_yapps',
+    #    'python_yapps',
     'pyramid_chameleon',
 ]
 
 setup(name='h2g2m',
       version='0.0',
       description='h2g2m',
-      long_description=README + '\n\n' +  CHANGES,
+      long_description=README + '\n\n' + CHANGES,
       classifiers=[
-        "Programming Language :: Python",
-        "Framework :: Pylons",
-        "Topic :: Internet :: WWW/HTTP",
-        "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
-        ],
+          "Programming Language :: Python",
+          "Framework :: Pylons",
+          "Topic :: Internet :: WWW/HTTP",
+          "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
+      ],
       author='h2g2m GbR',
       author_email='info@h2g2m.com',
       url='http://www.h2g2m.com',
@@ -44,7 +44,7 @@ setup(name='h2g2m',
       packages=find_packages(),
       include_package_data=True,
       zip_safe=False,
-      test_suite='h2g2m',
+      test_suite='h2g2m.tests',
       install_requires=requires,
       entry_points="""\
       [paste.app_factory]
@@ -52,5 +52,5 @@ setup(name='h2g2m',
       [console_scripts]
       populate_h2g2m = h2g2m.scripts.populate:main
       """,
-      )
+)
 

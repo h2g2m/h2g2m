@@ -1,4 +1,5 @@
-# h2g2m 
+# h2g2m
+![Travis-CI](https://travis-ci.org/h2g2m/h2g2m.svg?branch=master)
  
 ## install venv
 

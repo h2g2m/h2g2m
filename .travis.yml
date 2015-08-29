@@ -1,0 +1,8 @@
+language: python
+python:
+  - "2.7"
+install:
+  - easy_install "https://pypi.python.org/packages/source/Y/Yapps2/yapps2-2.1.1-17.1.tar.gz#md5=0651dda9fd07f2c15a8b5e25e0d5eadd"
+script:
+  python setup.py test
+
