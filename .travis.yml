@@ -2,7 +2,22 @@ language: python
 python:
   - "2.7"
 install:
+  - pip install coveralls
   - easy_install "https://pypi.python.org/packages/source/Y/Yapps2/yapps2-2.1.1-17.1.tar.gz#md5=0651dda9fd07f2c15a8b5e25e0d5eadd"
 script:
   python setup.py test
+  coverage run --source=h2g2m setup.py test
+after_success:
+  coveralls
 
+
+language: python
+python:
+  - "2.7"
+  - "3.4"
+install:
+  - pip install coveralls
+script:
+  coverage run --source=bankcsvtoqif setup.py test
+after_success:
+  coveralls

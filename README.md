@@ -1,5 +1,6 @@
 # h2g2m
 ![Travis-CI](https://travis-ci.org/h2g2m/h2g2m.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/h2g2m/h2g2m/badge.svg?branch=master&service=github)](https://coveralls.io/github/h2g2m/h2g2m?branch=master)
  
 ## install venv
 
