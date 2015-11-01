@@ -4,6 +4,7 @@
 *.sqlite
 /venv
 /data
+/owncloud
 
 # assets
 /h2g2m/static/css/bootstrap.css
