@@ -6,10 +6,10 @@
 
     mkdir temp
     cd temp
-    wget "http://pypi.python.org/packages/source/v/virtualenv/virtualenv-13.1.0.tar.gz"
-    tar xvfz virtualenv-13.1.0.tar.gz
+    wget "http://pypi.python.org/packages/source/v/virtualenv/virtualenv-13.1.2.tar.gz"
+    tar xvfz virtualenv-13.1.2.tar.gz
     cd ..
-    python temp\virtualenv-13.1.0\virtualenv.py venv
+    python temp\virtualenv-13.1.2\virtualenv.py venv
     rm -rf temp
 
 
