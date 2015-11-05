@@ -57,9 +57,9 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li tal:attributes="class 'active' if menuitem=='' else default" ><a href="${request.route_url('home')}">Home</a></li>
-                        <li tal:attributes="class 'active' if menuitem=='add' else default" ><a href="${request.route_url('txt.add')}">Create text</a></li>
+                        <li tal:condition="request.usr" tal:attributes="class 'active' if menuitem=='add' else default" ><a href="${request.route_url('txt.add')}">Create text</a></li>
                         <li tal:attributes="class 'active' if menuitem in ['list', 'b'] else default" ><a href="${request.route_url('txt.list')}">Browse</a></li>
-                        <li tal:condition="exists: txt" ><a href="${request.route_url('annotation.add', txt_id=txt.id)}">Create annotation</a></li>
+                        <li tal:condition="request.usr and txt | nothing" ><a href="${request.route_url('annotation.add', txt_id=txt.id)}">Create annotation</a></li>
                         <li tal:omit-tag="" tal:condition="exists: annotation" >
                             <li tal:condition="(len(annotation.txts) == 1)" ><a href="${request.route_url('annotation.add', txt_id=annotation.txts[0].id)}">Create annotation</a></li>
                         </li>

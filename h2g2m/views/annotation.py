@@ -6,7 +6,7 @@ from ..lib.form import FormSchema, Isbn, IdExists
 from ..lib.history import is_backworthy
 from formencode import validators, All, ForEach
 from pyramid_simpleform import Form
-from pyramid.httpexceptions import HTTPNotFound, HTTPFound
+from pyramid.httpexceptions import HTTPNotFound, HTTPFound, HTTPForbidden
 from ..lib.repositories import LanguageRepository
 
 from sqlalchemy import or_
@@ -37,6 +37,9 @@ class AnnotationSchema(FormSchema):
     renderer='../templates/annotation.form.pt',
 )
 def add(txt, request):
+    if not request.usr:
+        return HTTPForbidden()
+
     id = h.get_default_tex_header_id(request)
     obj = h.Struct(**{
         'tex_header_id': id,
@@ -73,6 +76,8 @@ def add(txt, request):
     renderer='../templates/annotation.form.pt',
 )
 def edit(annotation, request):
+    if not request.usr:
+        return HTTPForbidden()
     form = Form(request, AnnotationSchema, obj=annotation)
     if form.validate():
         annotation = form.bind(annotation, exclude= \
@@ -100,6 +105,8 @@ def edit(annotation, request):
     route_name='annotation.delete',
 )
 def delete(annotation, request):
+    if not request.usr:
+        return HTTPForbidden()
     annotation = DBSession.query(Annotation).filter_by(id=request.matchdict['annotation_id']).one()
     # TODO: muessen wir hier wirklich die annotation neu aus der DB holen? genuegt vielleicht der Paramter?
     request.bus.fire(AnnotationDeletedEvent(annotation=annotation))
@@ -198,6 +205,8 @@ class AddExistingAnnotation(FormSchema):
     renderer='../templates/annotation.add_to_text.pt'
 )
 def add_to_text(txt, request):
+    if not request.usr:
+        return HTTPForbidden()
     try:
         annotation = DBSession.query(Annotation). \
             filter_by(id=request.matchdict['annotation_id']).one()

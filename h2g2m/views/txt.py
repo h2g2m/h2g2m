@@ -7,7 +7,7 @@ from ..lib.history import is_backworthy
 from ..lib.formrenderers import FormRenderer
 from formencode import validators
 from pyramid_simpleform import Form
-from pyramid.httpexceptions import HTTPFound
+from pyramid.httpexceptions import HTTPFound, HTTPForbidden
 from ..lib.repositories import LanguageRepository
 from pyramid.path import AssetResolver
 
@@ -36,6 +36,8 @@ class TxtSchema(FormSchema):
     renderer='../templates/txt.form.pt'
 )
 def add(request):
+    if not request.usr:
+        return HTTPForbidden()
     # get last language (TODO this is slow)
     txts = [(t.language, t.creation_timestamp) for t in request.usr.txts]
     txts.sort(key=lambda x: x[1], reverse=True)
@@ -59,6 +61,8 @@ def add(request):
     # permission='write'
 )
 def edit(txt, request):
+    if not request.usr:
+        return HTTPForbidden()
     form = Form(request, TxtSchema, obj=txt)
     if form.validate():
         form.bind(txt)
@@ -72,6 +76,8 @@ def edit(txt, request):
     # permission='write',
 )
 def delete(txt, request):
+    if not request.usr:
+        return HTTPForbidden()
     txt = DBSession.query(Txt).filter_by(id=request.matchdict['txt_id']).one()
     request.bus.fire(TxtDeletedEvent(txt=txt))
     return HTTPFound(location=request.route_url('txt.list'))
