@@ -1,2 +1,2 @@
 [report]
-omit = */tests/*.*,*/static/*.*
+omit = /*tests/*.*
