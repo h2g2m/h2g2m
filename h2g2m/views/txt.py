@@ -10,12 +10,10 @@ from pyramid_simpleform import Form
 from pyramid.httpexceptions import HTTPFound, HTTPForbidden
 from ..lib.repositories import LanguageRepository
 from pyramid.path import AssetResolver
-
 from sqlalchemy import or_
 from ..models import (
     DBSession,
     Txt,
-    Person,
     Annotation,
 )
 
@@ -119,9 +117,8 @@ def search_basic(request):
         where = or_(where, Txt.title.like(needle))
         where = or_(where, Txt.edition.like(needle))
         where = or_(where, Txt.isbn.like(needle))
-        where = or_(where, Person.name.like(needle))
+        where = or_(where, Txt.authors.like(needle))
         txts = DBSession.query(Txt)
-        txts = txts.outerjoin(Txt.author_list)
         txts = txts.filter(where)
     return {'txts': txts, 'form': FormRenderer(form)}
 
@@ -150,28 +147,8 @@ def search_advanced(request):
         if form.data['isbn']:
             txts = txts.filter(Txt.isbn.like('%' + form.data['isbn'] + '%'))
         if form.data['author']:
-            txts = txts.join(Txt.author_list).filter(Person.name.like('%' + form.data['author'] + '%'))
+            txts = txts.filter(Txt.authors.like('%' + form.data['author'] + '%'))
         if form.data['annotation_content']:
             txts = txts.join(Txt.annotations).filter(
                 Annotation.content.like('%' + form.data['annotation_content'] + '%'))
     return {'txts': txts, 'form': FormRenderer(form)}
-
-
-@view_config(
-    route_name='txt.search.basic.toannotate',
-    renderer='../templates/txt.search.basic.pt'
-)
-def search_basic_toannotate(annotation, request):
-    ret = search_basic(request)
-    ret['annotation'] = annotation
-    return ret
-
-
-@view_config(
-    route_name='txt.search.advanced.toannotate',
-    renderer='../templates/txt.search.advanced.pt'
-)
-def search_advanced_toannotate(annotation, request):
-    ret = search_advanced(request)
-    ret['annotation'] = annotation
-    return ret

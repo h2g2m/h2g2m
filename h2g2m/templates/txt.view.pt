@@ -11,8 +11,6 @@
             
     <h2>
         <a tal:condition="request.usr" href="${request.route_url('annotation.add', txt_id=txt.id)}" class="btn btn-success morespacing"><i class="icon-plus-sign"></i> create new</a>
-        <a tal:condition="request.usr" href="${request.route_url('annotation.search.basic', txt_id=txt.id)}" class="btn btn-success morespacing"><i class="icon-hand-right"></i> add existing</a>
-        Annotations
     </h2>
 
     <div tal:define="show_links ['view','edit']; annotations txt_annotations; compile load: annotation.list.pt" metal:use-macro="compile" />

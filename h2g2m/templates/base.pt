@@ -60,16 +60,8 @@
                         <li tal:condition="request.usr" tal:attributes="class 'active' if menuitem=='add' else default" ><a href="${request.route_url('txt.add')}">Create text</a></li>
                         <li tal:attributes="class 'active' if menuitem in ['list', 'b'] else default" ><a href="${request.route_url('txt.list')}">Browse</a></li>
                         <li tal:condition="request.usr and txt | nothing" ><a href="${request.route_url('annotation.add', txt_id=txt.id)}">Create annotation</a></li>
-                        <li tal:omit-tag="" tal:condition="exists: annotation" >
-                            <li tal:condition="(len(annotation.txts) == 1)" ><a href="${request.route_url('annotation.add', txt_id=annotation.txts[0].id)}">Create annotation</a></li>
-                        </li>
-                        <li tal:omit-tag="" tal:condition="exists: annotation" >
-                            <li tal:condition="len(annotation.txts) != 1" class="dropdown" >
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Create annotation <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li tal:repeat="txt annotation.txts"><a href="${request.route_url('annotation.add', txt_id=txt.id)}">${txt.displayname}</a></li>
-                                </ul>
-                            </li>
+                        <li tal:condition="exists: annotation" >
+                            <a href="${request.route_url('annotation.add', txt_id=annotation.txt.id)}">Create annotation</a>
                         </li>
                         <li tal:attributes="class 'active' if menuitem=='search' else default" ><a href="${request.route_url('txt.search.basic')}">Search</a></li>
                         <li tal:attributes="class 'active' if menuitem=='about' else default" ><a href="${request.route_url('about')}">About</a></li>
@@ -84,7 +76,6 @@
                                 <li><a href="${request.route_url('usr.view')}">Profile</a></li>
                                 <li><a href="${request.route_url('usr.texts')}">My Texts</a></li>
                                 <li><a href="${request.route_url('usr.annotations')}">My Annotations</a></li>
-                                <li><a href="${request.route_url('usr.tags')}">My Tags</a></li>
                                 <li><a href="${request.route_url('usr.tex_header', usr_id=request.usr.id)}">TeX-Header</a></li>
                                 <li><a href="${request.route_url('logout')}">Logout</a></li>
                             </ul>

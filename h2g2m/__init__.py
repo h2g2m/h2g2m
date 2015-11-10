@@ -6,21 +6,17 @@ from h2g2m.listener import init_bus
 from pyramid.config import Configurator
 from pyramid.security import unauthenticated_userid
 from sqlalchemy import engine_from_config
-
 from pyramid.authentication import AuthTktAuthenticationPolicy
 from pyramid.authorization import ACLAuthorizationPolicy
-
 import lib.helpers as h
 import models.helpers as db
 from lib.history import Request, get_back_link
-
 from .models import *
 from models import helpers as modelhelpers
-
 from sqlalchemy.orm.exc import NoResultFound
 from pyramid.httpexceptions import HTTPNotFound
-
 import sys
+
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
@@ -31,7 +27,6 @@ def main(global_config, **settings):
     # Authentication and Authorization
     authentication_policy = AuthTktAuthenticationPolicy(
         secret='Ycf1Tjqe04MSTfIPYK63',
-        callback=group_finder,
         include_ip=True
     )
     authorization_policy = ACLAuthorizationPolicy()
@@ -58,12 +53,13 @@ def main(global_config, **settings):
     # Properties
     config.set_request_property(get_back_link, 'back_link', reify=True)
     config.set_request_property(get_usr, 'usr', reify=True)
-    config.set_request_property(lambda request: 1, 'current_language_id', reify=True) # TODO das hier irgendwie anders machen
+    config.set_request_property(lambda request: 1, 'current_language_id',
+                                reify=True)  # TODO das hier irgendwie anders machen
 
     # Includes
-    config.include('pyramid_beaker') # for sessions
-    config.include('pyramid_mailer') # for mailing
-    config.include('pyramid_chameleon') # for chameleon templates
+    config.include('pyramid_beaker')  # for sessions
+    config.include('pyramid_mailer')  # for mailing
+    config.include('pyramid_chameleon')  # for chameleon templates
 
     # static views
     if settings['less_static_view']:
@@ -85,33 +81,18 @@ def main(global_config, **settings):
     config.add_route('usr.loggedin', '/')
     config.add_route('register', '/register')
 
-    config.add_route('usr.view',        '/profile/')
-    config.add_route('usr.edit',        '/profile/edit')
-    config.add_route('usr.passwd',      '/profile/passwd')
-    config.add_route('usr.texts',       '/profile/texts')
+    config.add_route('usr.view', '/profile/')
+    config.add_route('usr.edit', '/profile/edit')
+    config.add_route('usr.passwd', '/profile/passwd')
+    config.add_route('usr.texts', '/profile/texts')
     config.add_route('usr.annotations', '/profile/annotations')
-    config.add_route('usr.tags',        '/profile/tags')
-    config.add_route('usr.tex_header',  '/profile/tex_header')
-
-    # tags
-    config.add_route('tag', '/tg/{tag_id:\d+}',
-        factory=FactoryFromID(Tag,'tag_id'))
+    config.add_route('usr.tex_header', '/profile/tex_header')
 
     # txt routes
     config.add_route('txt.add', '/add')
     config.add_route('txt.list', '/list')
     config.add_route('txt.search.basic', '/search')
     config.add_route('txt.search.advanced', '/search/adv')
-    config.add_route(
-        'txt.search.basic.toannotate',
-        '/a/{annotation_id:\d+}/search',
-        factory=FactoryFromID(Annotation, 'annotation_id')
-    )
-    config.add_route(
-        'txt.search.advanced.toannotate',
-        '/a/{annotation_id:\d+}/search/adv',
-        factory=FactoryFromID(Annotation, 'annotation_id')
-    )
     config.add_route(
         'txt.view',
         '/t/{txt_id:\d+}',
@@ -140,16 +121,6 @@ def main(global_config, **settings):
         factory=FactoryFromID(Txt, 'txt_id')
     )
     config.add_route(
-        'annotation.search.basic',
-        '/t/{txt_id:\d+}/annotate/search',
-        factory=FactoryFromID(Txt, 'txt_id')
-    )
-    config.add_route(
-        'annotation.search.advanced',
-        '/t/{txt_id:\d+}/annotate/search/adv',
-        factory=FactoryFromID(Txt, 'txt_id')
-    )
-    config.add_route(
         'annotation.edit',
         '/a/{annotation_id:\d+}/edit/',
         factory=FactoryFromID(Annotation, 'annotation_id')
@@ -171,29 +142,12 @@ def main(global_config, **settings):
     config.add_route(
         'admin.profile.edit',
         '/editprofile/{usr_id:\d+}/profile',
-        factory=FactoryFromID(Usr,'usr_id')
+        factory=FactoryFromID(Usr, 'usr_id')
     )
     config.add_route(
         'admin.edit.passwd',
         '/editprofile/{usr_id:\d+}/passwd',
-        factory=FactoryFromID(Usr,'usr_id')
-    )
-
-    # posts
-    config.add_route(
-        'post.display',
-        '/post/{post_id:\d+}/display',
-        factory=FactoryFromID(Post,'post_id')
-    )
-    config.add_route(
-        'post.answer',
-        '/post/{post_id:\d+}/answer/retann/{annotation_id:\d+}',
-        factory=FactoryFromID(Post,'post_id')
-    )
-    config.add_route(
-        'post.create',
-        '/post/create/ann/{annotation_id:\d+}/{is_resolution:\d+}',
-        factory=FactoryFromID(Annotation,'annotation_id')
+        factory=FactoryFromID(Usr, 'usr_id')
     )
 
     # internal routes
@@ -203,7 +157,6 @@ def main(global_config, **settings):
     config.scan()
 
     return config.make_wsgi_app()
-
 
 
 class RootFactory(object):
@@ -217,20 +170,14 @@ class RootFactory(object):
 def FactoryFromID(cls, param):
     def factory(request):
         try:
-            obj = DBSession.query(cls).filter(cls.id==int(request.matchdict[param])).one()
+            obj = DBSession.query(cls).filter(cls.id == int(request.matchdict[param])).one()
             obj.__parent__ = RootFactory(request)
             obj.__name__ = None
             return obj
         except NoResultFound:
             raise HTTPNotFound
+
     return factory
-
-
-def group_finder(user_id, request):
-    usr = request.usr
-    if usr is not None:
-        l = [g.name for g in usr.groups]
-        return l
 
 
 def get_usr(request):

@@ -6,14 +6,11 @@
         View Annotation
     </h1>
     <fieldset>
-        <legend>Refers to ${len(annotation.txts)} Text(s)</legend>
-        <div tal:repeat="linked_txt annotation.txts">
-            <div tal:define="txt linked_txt; compile load: txt.properties.pt" metal:use-macro="compile"></div>
-            <a href="${request.route_url('txt.view', txt_id=linked_txt.id)}" class="btn btn-info morespacing"><i class="icon-camera"></i> view</a>
-            <a href="${request.route_url('txt.edit', txt_id=linked_txt.id)}" class="btn btn-info morespacing"><i class="icon-edit"></i> edit</a>
-            <a href="${request.route_url('txt.delete', txt_id=linked_txt.id)}" class="btn btn-danger morespacing"><i class="icon-trash"></i> delete</a>
-            <a href="" class="btn btn-danger morespacing"><i class="icon-remove"></i> remove from annotation</a>
-        </div>
+        <div tal:define="txt annotation.txt; compile load: txt.properties.pt" metal:use-macro="compile"></div>
+        <a href="${request.route_url('txt.view', txt_id=annotation.txt.id)}" class="btn btn-info morespacing"><i class="icon-camera"></i> view</a>
+        <a href="${request.route_url('txt.edit', txt_id=annotation.txt.id)}" class="btn btn-info morespacing"><i class="icon-edit"></i> edit</a>
+        <a href="${request.route_url('txt.delete', txt_id=annotation.txt.id)}" class="btn btn-danger morespacing"><i class="icon-trash"></i> delete</a>
+        <a href="" class="btn btn-danger morespacing"><i class="icon-remove"></i> remove from annotation</a>
     </fieldset>
     <fieldset>
         <legend>Details</legend>
@@ -37,22 +34,6 @@
         <a href="${request.route_url('annotation.edit', annotation_id=annotation.id)}" class="btn btn-info morespacing"><i class="icon-edit"></i> edit</a>
         <a href="${request.route_url('annotation.delete', annotation_id=annotation.id)}" class="btn btn-danger morespacing"><i class="icon-trash"></i> delete</a>
     </fieldset>
-    <fieldset>
-        <legend>Resolutions</legend>
-        <a href="${request.route_url('post.create', annotation_id=annotation.id, is_resolution=1)}" class="btn btn-success morespacing"><i class="icon-plus-sign"></i> create new</a>        
-        <div 
-            tal:repeat="post annotation.resolutions" 
-            tal:define="do_recursive False; compile load: post.pt" 
-            metal:use-macro="compile" />
-    </fieldset>
-    <fieldset>
-        <legend>Discussion Thread</legend>
-        <a href="${request.route_url('post.create', annotation_id=annotation.id, is_resolution=0)}" class="btn btn-success morespacing"><i class="icon-plus-sign"></i> create new</a>
-        <div 
-            tal:repeat="post annotation.posts" 
-            tal:define="do_recursive True; compile load: post.pt" 
-            metal:use-macro="compile" />
-    </fieldset>    
 </div>
 </metal:main>
 

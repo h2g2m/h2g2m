@@ -1,6 +1,0 @@
-<metal:main use-macro="load: annotation.search.pt">
-<div metal:fill-slot="search_content">
-    <legend>Search</legend>
-    ${h.formfield(form, 'q', 'Query', 'text')}
-</div>
-</metal:main>

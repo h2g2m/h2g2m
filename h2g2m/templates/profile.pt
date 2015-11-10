@@ -7,8 +7,7 @@
                            ('Edit','edit'), 
                            ('My Texts','texts'), 
                            ('My Annotations','annotations'), 
-                           ('My Tags','tags'), 
-                           ('Password','passwd'), 
+                           ('Password','passwd'),
                            ('TeX-Header','tex_header'), 
             ]" tal:attributes="class 'active' if request.current_route_path()== \
                        request.route_path('usr.'+x[1], usr_id=usr.id) else default">

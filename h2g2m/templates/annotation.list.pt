@@ -8,7 +8,6 @@
                 <th width="100">&nbsp;</th>
                 <th>Location</th>
                 <th>Title</th>
-                <th>Tags</th>
                 <th>Texts</th>
                 <th>Created by</th>
             </tr>
@@ -22,8 +21,7 @@
                 </td>
                 <td>${annotation.location}</td>
                 <td>${annotation.title}</td>
-                <td>${annotation.tags}</td>
-                <td><div tal:repeat="txt annotation.txts">${txt.displayname}</div></td>
+                <td>${annotation.txt.displayname}</td>
                 <td>${annotation.creator.nickname} on (${annotation.creation_timestamp})</td>
             </tr>
         </tbody>

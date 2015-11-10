@@ -16,7 +16,6 @@ class TestTxt(unittest.TestCase):
         engine = create_engine('sqlite://')
         from h2g2m.models.tables import (
             Base,
-            Grp,
             Usr,
             Txt,
         )
@@ -24,10 +23,7 @@ class TestTxt(unittest.TestCase):
         DBSession.configure(bind=engine)
         Base.metadata.create_all(engine)
         with transaction.manager:
-            adm_grp = Grp(name='hitchhiker')
-            DBSession.add(adm_grp)
-            DBSession.flush()
-            creator = Usr(login='hitchhiker', nickname='hitchhiker', language='English', passwd='tester', grp_id=adm_grp.id)
+            creator = Usr(login='hitchhiker', nickname='hitchhiker', language='English', passwd='tester')
             DBSession.add(creator)
             DBSession.flush()
             model = Txt(title='Calculus 1', edition='1', isbn='1337', creator=creator, language='English')

@@ -29,7 +29,6 @@ $(function() {
                 ${h.formfield(form, id='title', caption='Title', fieldtype='text', columns=(3,9))}
                 ${h.formfield(form, id='location', caption='Location', fieldtype='text', columns=(3,9))}
                 ${h.formfield(form, id='content', caption='Content', fieldtype='textarea', columns=(3,9), rows=14, cols=80, style='width:100%;')}
-                ${h.formfield(form, id='tags', caption='Tags', fieldtype='text', columns=(3,9))}
                 ${h.formfield(form, id='language', caption='Language', fieldtype='text', columns=(3,9))}
                 ${h.formfield(form, id='tex_header_id', caption='LaTeX header', fieldtype='select', columns=(3,9), options= [(0, 'None')] + [ (th.id, th.name) for th in request.usr.tex_headers ] )}
             </fieldset>

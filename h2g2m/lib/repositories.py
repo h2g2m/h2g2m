@@ -11,4 +11,3 @@ class LanguageRepository:
         data = open(self.filename, 'r').read()
         data = json.loads(data.decode("utf-8-sig"))
         return [v['name'] for k, v in data.iteritems()]
-

@@ -1,8 +1,0 @@
-<metal:main use-macro="load: base.pt">
-    <div metal:fill-slot="content">
-        <dl>
-            <div tal:define="do_recursive True; compile load: post.pt" metal:use-macro="compile" />
-        </dl>
-    </div>
-</metal:main>
-

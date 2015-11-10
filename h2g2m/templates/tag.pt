@@ -1,6 +1,0 @@
-<metal:main use-macro="load: base.pt">
-    <div metal:fill-slot="content">
-        <h1>Tag: ${tag}</h1>
-        <div tal:define="show_links ['view','edit']; annotations tag.annotations; compile load: annotation.list.pt" metal:use-macro="compile" />
-    </div>
-</metal:main>

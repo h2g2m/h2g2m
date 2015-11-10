@@ -13,7 +13,7 @@ from ..lib import helpers as h
 
 from ..models import (
     DBSession,
-    Usr, Grp, TexHeader
+    Usr, TexHeader
 )
 
 # TODO: Bei allen admin_ - routinen einen standardview
@@ -113,12 +113,8 @@ class RegisterSchema(FormSchema):
 def register(request):
     form = Form(request, RegisterSchema)
     if form.validate():
-        grp = Grp(name=form.data['login'])
-        DBSession.add(grp)
-        DBSession.flush()
-
         usr = form.bind(
-            Usr(default_language_id=request.current_language_id, grp_id=grp.id),
+            Usr(default_language_id=request.current_language_id),
             include=['login', 'nickname', 'email', 'passwd']
         )
         DBSession.add(usr)
@@ -174,16 +170,6 @@ def usr_edit(request):
             location=request.route_url('usr.view')
         )
     return {'usr': request.usr, 'form': FormRenderer(form)}
-
-
-@view_config(
-    route_name='usr.tags',
-    renderer='../templates/profile.tags.pt',
-)
-def usr_tags(request):
-    if not h.is_loggedin(request):
-        return HTTPForbidden()
-    return {'usr': request.usr}
 
 
 @view_config(
