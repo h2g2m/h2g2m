@@ -23,10 +23,22 @@ class TestTxt(unittest.TestCase):
         DBSession.configure(bind=engine)
         Base.metadata.create_all(engine)
         with transaction.manager:
-            creator = Usr(login='hitchhiker', nickname='hitchhiker', language='English', passwd='tester')
+            creator = Usr(
+                login='hitchhiker',
+                nickname='hitchhiker',
+                language='English',
+                passwd='tester'
+            )
             DBSession.add(creator)
             DBSession.flush()
-            model = Txt(title='Calculus 1', edition='1', isbn='1337', creator=creator, language='English')
+            model = Txt(
+                title='Calculus 1',
+                authors='Gottfried Wilhelm Leibniz',
+                edition='1',
+                isbn='1337',
+                creator=creator,
+                language='English'
+            )
             DBSession.add(model)
 
     def tearDown(self):
